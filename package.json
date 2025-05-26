@@ -1,0 +1,31 @@
+{
+  "name": "test-task",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "db-start": "npx json-server db.json"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.77.2",
+    "@vkontakte/vkui": "^7.3.6",
+    "dayjs": "^1.11.13",
+    "json-server": "^1.0.0-beta.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "globals": "^16.0.0",
+    "sass": "^1.89.0",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5"
+  }
+}
