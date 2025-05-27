@@ -1,10 +1,15 @@
-import {FC, useCallback, useEffect, useMemo, useRef} from 'react'
+import {FC, useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import './App.css'
 import {useInfinityHumans} from "./queries/useInfinityHumans.ts";
+import {AddNewRecordModal} from "@/components/AddNewRecordModal/AddNewRecordModal.tsx";
+import {Table} from "antd";
+import {COLUMNS} from "@/components/columns.ts";
 
 export const App: FC = () => {
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
     const triggerRef = useRef<HTMLDivElement | null>(null);
-    const { data, fetchNextPage, fetchPreviousPage, hasNextPage, isFetchingNextPage } = useInfinityHumans();
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfinityHumans();
     const observerCallback = useCallback((entries: IntersectionObserverEntry[]) => {
         const [triggerElement] = entries;
         if (triggerElement.isIntersecting && hasNextPage && !isFetchingNextPage) void fetchNextPage();
@@ -24,21 +29,18 @@ export const App: FC = () => {
         <>
             <h1>Vite + React</h1>
             <div className="card">
-            <button onClick={() => fetchPreviousPage()}>
-                prev
-            </button>
-            <button onClick={() => fetchNextPage()}>
-                next
-            </button>
-            <div>
-                {items.map((item) => (
-                    <div key={item.id}>{item.age}</div>
-                ))}
-            </div>
+                <button onClick={() => setIsModalOpen(true)}>
+                    prev
+                </button>
+                <button onClick={() => fetchNextPage()}>
+                    next
+                </button>
+                <Table dataSource={items} columns={COLUMNS} pagination={false} sticky={true}/>
             </div>
             <p className="read-the-docs" ref={triggerRef}>
-            Click on the Vite and React logos to learn more
+                Click on the Vite and React logos to learn more
             </p>
+            <AddNewRecordModal isOpen={isModalOpen} setIsOpen={setIsModalOpen}/>
         </>
     );
 };
