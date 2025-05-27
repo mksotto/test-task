@@ -24,5 +24,5 @@ export const makeRequestService = (baseUrl: string) =>
             credentials: 'include',
         }).then(async r => {
             if (!r.ok) throw new Error(r.statusText);
-            return r.headers.get('content-type') === 'application/json; charset=utf-8' ? r.json() : r.text();
+            return r.headers.get('content-type')?.includes('application/json') ? r.json() : r.text();
         });
