@@ -1,7 +1,6 @@
-import {type FC, useCallback, useEffect, useRef} from 'react'
+import {FC, useCallback, useEffect, useMemo, useRef} from 'react'
 import './App.css'
 import {useInfinityHumans} from "./queries/useInfinityHumans.ts";
-import React from 'react';
 
 export const App: FC = () => {
     const triggerRef = useRef<HTMLDivElement | null>(null);
@@ -17,7 +16,10 @@ export const App: FC = () => {
         observer.observe(element);
         return () => observer.disconnect();
     }, [observerCallback]);
-    if (!data) return null;
+    const items = useMemo(() => data?.pages.flatMap(page => page.data), [data?.pages]);
+
+    if (!items) return null;
+
     return (
         <>
             <h1>Vite + React</h1>
@@ -28,15 +30,11 @@ export const App: FC = () => {
             <button onClick={() => fetchNextPage()}>
                 next
             </button>
-            <p>
-                {data.pages?.map(page => (
-                    <React.Fragment key={page.next}>
-                        {page?.data?.map(foo => (
-                            <p key={foo.id}>{foo.age}</p>
-                        ))}
-                    </React.Fragment>
+            <div>
+                {items.map((item) => (
+                    <div key={item.id}>{item.age}</div>
                 ))}
-            </p>
+            </div>
             </div>
             <p className="read-the-docs" ref={triggerRef}>
             Click on the Vite and React logos to learn more

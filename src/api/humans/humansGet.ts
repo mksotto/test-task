@@ -1,6 +1,6 @@
 import {humansRequestService} from "./base.ts";
-import type {Human} from "../../types/api.ts";
-import type {PageResponse} from "../../types/PageResponse.ts";
+import {Human} from "@/types/api.ts";
+import {PageResponse} from "@/types/PageResponse.ts";
 
 export const humansGet = (page: number, perPage: number = 10) => humansRequestService<PageResponse<Human>>({
     url: '',
