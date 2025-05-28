@@ -3,6 +3,7 @@ import {Layout, Flex} from "antd";
 import {VkLogo} from "./components/VkLogo.tsx";
 import {GitHubLogo} from "./components/GitHubLogo.tsx";
 import styles from "./LayoutWrapper.module.scss";
+import cx from "classnames";
 
 type Props = {
     children: ReactNode;
@@ -11,7 +12,7 @@ type Props = {
 export const LayoutWrapper: FC<Props> = ({children}) => (
     <Layout>
         <Layout.Header className={styles.header}>
-            <Flex justify='space-between'>
+            <Flex justify='space-between' className={cx(styles.container, styles.header_container)}>
                 <Flex align='center' gap={16}>
                     <VkLogo/>
                     <h1>Профильное задание</h1>
@@ -21,8 +22,10 @@ export const LayoutWrapper: FC<Props> = ({children}) => (
                 </a>
             </Flex>
         </Layout.Header>
-        <Layout.Content>
-            {children}
+        <Layout.Content className={styles.content}>
+            <div className={styles.container}>
+                {children}
+            </div>
         </Layout.Content>
     </Layout>
 );

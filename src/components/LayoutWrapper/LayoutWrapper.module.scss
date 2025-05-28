@@ -1,11 +1,20 @@
-.header {
+.container {
+  max-width: 1280px;
   width: 100%;
-  flex: 1 0;
+}
+
+.header {
   color: #fff;
   background-color: #07F;
-  padding: 16px 48px;
   height: auto;
   border-radius: 0 0 16px 16px;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+
+  &_container {
+    padding-inline: 32px;
+  }
 };
 
 .githubLink {
@@ -18,3 +27,8 @@
     opacity: 1;
   };
 };
+
+.content {
+  display: flex;
+  justify-content: center;
+}
