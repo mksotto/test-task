@@ -6,7 +6,7 @@ import {v7 as uuid} from "uuid";
 
 type Props = {
     isOpen: boolean;
-    onClose: () => void;
+    onClose: VoidFunction;
 };
 
 type HumanFormType = Omit<Human, 'id'>;

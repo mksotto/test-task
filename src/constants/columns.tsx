@@ -37,6 +37,6 @@ export const COLUMNS: TableProps<Human>['columns'] = [
         title: 'Электронная почта',
         render: (value: Human['email']) => (
             <Typography.Link href={`mailto:${value}`}>{value}</Typography.Link>
-        )
+        ),
     },
 ];
