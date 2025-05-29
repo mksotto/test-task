@@ -4,15 +4,6 @@ import userEvent from '@testing-library/user-event';
 import { AddNewRecordModal } from '../AddNewRecordModal';
 import { render } from '../../../utils/test-utils';
 
-vi.mock('@/hooks/useHumanPost', () => ({
-  useHumanPost: () => ({
-    mutate: vi.fn((data) => {
-      console.log('Mutation data:', data);
-      return Promise.resolve();
-    }),
-  }),
-}));
-
 describe('AddNewRecordModal', () => {
   it('is not showed when property isOpen equal to false', () => {
     render(<AddNewRecordModal isOpen={false} onClose={vi.fn()} />);
