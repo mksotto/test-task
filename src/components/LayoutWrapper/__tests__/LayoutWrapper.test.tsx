@@ -1,15 +1,30 @@
-import { describe, it, expect } from 'vitest';
-import { screen } from '@testing-library/react';
+import {describe, it, expect} from 'vitest';
+import {render, screen} from '@testing-library/react';
 import { LayoutWrapper } from '../LayoutWrapper';
-import { render } from '../../../utils/test-utils';
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {ReactNode} from "react";
+import {ConfigProvider} from "antd";
+import ruRU from "antd/locale/ru_RU";
+
+const createWrapper = () => {
+  const queryClient = new QueryClient();
+  return ({ children }: { children: ReactNode }) => (
+      <QueryClientProvider client={queryClient}>
+        <ConfigProvider locale={ruRU}>
+          {children}
+        </ConfigProvider>
+      </QueryClientProvider>
+  );
+};
 
 describe('LayoutWrapper', () => {
   it('shows a header "Профильное задание"', () => {
     render(
       <LayoutWrapper>
         <div>Текст</div>
-      </LayoutWrapper>
-    );
+      </LayoutWrapper>, {
+      wrapper: createWrapper()
+    });
     expect(screen.getByText('Профильное задание')).toBeInTheDocument();
   });
 
@@ -17,8 +32,9 @@ describe('LayoutWrapper', () => {
     render(
       <LayoutWrapper>
         <div>Текст</div>
-      </LayoutWrapper>
-    );
+      </LayoutWrapper>, {
+        wrapper: createWrapper()
+    });
     expect(screen.getByRole('link')).toHaveAttribute('href', 'https://github.com/mksotto/test-task');
   });
 
@@ -26,9 +42,10 @@ describe('LayoutWrapper', () => {
     const testContent = 'Текст';
     render(
       <LayoutWrapper>
-        <div>{testContent}</div>
-      </LayoutWrapper>
-    );
+        <div>Текст</div>
+      </LayoutWrapper>, {
+        wrapper: createWrapper()
+    });
     expect(screen.getByText(testContent)).toBeInTheDocument();
   });
 
@@ -36,8 +53,9 @@ describe('LayoutWrapper', () => {
     render(
       <LayoutWrapper>
         <div>Текст</div>
-      </LayoutWrapper>
-    );
+      </LayoutWrapper>, {
+        wrapper: createWrapper()
+    });
     expect(document.querySelectorAll('svg').length).toBe(2);
   });
 }); 

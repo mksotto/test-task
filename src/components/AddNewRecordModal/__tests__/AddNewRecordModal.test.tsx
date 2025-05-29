@@ -1,23 +1,44 @@
 import { describe, it, expect, vi } from 'vitest';
-import { screen } from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { AddNewRecordModal } from '../AddNewRecordModal';
-import { render } from '../../../utils/test-utils';
+// import { render } from '../../../utils/test-utils';
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {ConfigProvider} from "antd";
+import ruRU from "antd/locale/ru_RU";
+import {ReactNode} from "react";
+
+const createWrapper = () => {
+  const queryClient = new QueryClient();
+  return ({ children }: { children: ReactNode }) => (
+    <QueryClientProvider client={queryClient}>
+      <ConfigProvider locale={ruRU}>
+        {children}
+      </ConfigProvider>
+    </QueryClientProvider>
+  );
+};
 
 describe('AddNewRecordModal', () => {
   it('is not showed when property isOpen equal to false', () => {
-    render(<AddNewRecordModal isOpen={false} onClose={vi.fn()} />);
+    render(<AddNewRecordModal isOpen={false} onClose={vi.fn()} />, {
+      wrapper: createWrapper()
+    });
     expect(screen.queryByText('Добавить запись')).not.toBeInTheDocument();
   });
 
   it('is showed when property isOpen equal to true', () => {
-    render(<AddNewRecordModal isOpen={true} onClose={vi.fn()} />);
+    render(<AddNewRecordModal isOpen={true} onClose={vi.fn()} />, {
+      wrapper: createWrapper()
+    });
     expect(screen.getByText('Добавить запись')).toBeInTheDocument();
   });
 
   it('trigger onClose fn after cancelButton click', async () => {
     const onClose = vi.fn();
-    render(<AddNewRecordModal isOpen={true} onClose={onClose} />);
+    render(<AddNewRecordModal isOpen={true} onClose={onClose} />, {
+      wrapper: createWrapper()
+    });
 
     const cancelButton = screen.getByText('Отмена');
     await userEvent.click(cancelButton);
@@ -26,7 +47,9 @@ describe('AddNewRecordModal', () => {
   });
 
   it('shows validation message', async () => {
-    render(<AddNewRecordModal isOpen={true} onClose={vi.fn()} />);
+    render(<AddNewRecordModal isOpen={true} onClose={vi.fn()} />, {
+      wrapper: createWrapper()
+    });
 
     const submitButton = screen.getByText('ОК');
     await userEvent.click(submitButton);
@@ -42,7 +65,9 @@ describe('AddNewRecordModal', () => {
   it('successfully post valid data', async () => {
     const onClose = vi.fn();
 
-    render(<AddNewRecordModal isOpen={true} onClose={onClose} />);
+    render(<AddNewRecordModal isOpen={true} onClose={onClose} />, {
+      wrapper: createWrapper()
+    });
 
     await userEvent.type(screen.getByLabelText('Имя'), 'Максим');
     await userEvent.type(screen.getByLabelText('Фамилия'), 'Максимов');
@@ -58,7 +83,9 @@ describe('AddNewRecordModal', () => {
   });
 
   it('shows validation message if incorrect email was entered', async () => {
-    render(<AddNewRecordModal isOpen={true} onClose={vi.fn()} />);
+    render(<AddNewRecordModal isOpen={true} onClose={vi.fn()} />, {
+      wrapper: createWrapper()
+    });
 
     const emailInput = screen.getByLabelText('Эл. почта');
     await userEvent.type(emailInput, 'foo bar');
