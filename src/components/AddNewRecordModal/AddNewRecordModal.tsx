@@ -26,6 +26,8 @@ export const AddNewRecordModal: FC<Props> = ({isOpen, onClose}) => {
             onOk={form.submit}
             onCancel={onClose}
             destroyOnHidden
+            okText='ОК'
+            cancelText='Отмена'
         >
             <Form
                 form={form}
