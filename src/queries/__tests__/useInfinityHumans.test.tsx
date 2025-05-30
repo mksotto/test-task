@@ -1,21 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { renderHook, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import { useInfinityHumans } from '../useInfinityHumans';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import {ReactNode} from "react";
-
-const createWrapper = () => {
-  const queryClient = new QueryClient();
-  return ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
-};
+import {renderHookWithWrapper} from "@/utils/test-utils/renderWithWrapper.tsx";
 
 describe('useInfinityHumans', () => {
   it('successfully load first page', async () => {
-    const { result } = renderHook(() => useInfinityHumans(), {
-      wrapper: createWrapper(),
-    });
+    const { result } = renderHookWithWrapper(() => useInfinityHumans());
 
     await waitFor(() => {
       expect(result.current.data?.pages[0].data).toBeDefined();
@@ -35,9 +25,7 @@ describe('useInfinityHumans', () => {
   });
 
   it('pagination should work correctly', async () => {
-    const { result } = renderHook(() => useInfinityHumans(), {
-      wrapper: createWrapper(),
-    });
+    const { result } = renderHookWithWrapper(() => useInfinityHumans());
 
     await waitFor(() => {
       expect(result.current.data?.pages[0].data).toBeDefined();
