@@ -60,7 +60,7 @@ export const AddNewRecordModal: FC<Props> = ({isOpen, onClose}) => {
                     name='age'
                     label='Возраст'
                     rules={[
-                        {required: true, whitespace: true, message: 'Пожалуйста, введите возраст'}
+                        {required: true, message: 'Пожалуйста, введите возраст'}
                     ]}
                 >
                     <InputNumber controls={false} min={0} max={100} style={{ width: '100%' }}/>
