@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import '@ant-design/v5-patch-for-react-19';
 import {ConfigProvider, App as ApplicationWrapper, ThemeConfig} from "antd";
 import localeRU from 'antd/locale/ru_RU';
 import {App} from './App.tsx';
