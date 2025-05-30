@@ -42,7 +42,7 @@ export const AddNewRecordModal: FC<Props> = ({isOpen, onClose}) => {
                     name='firstName'
                     label='Имя'
                     rules={[
-                        {required: true, message: 'Пожалуйста, введите имя'},
+                        {required: true, whitespace: true, message: 'Пожалуйста, введите имя'},
                     ]}
                 >
                     <Input/>
@@ -51,7 +51,7 @@ export const AddNewRecordModal: FC<Props> = ({isOpen, onClose}) => {
                     name='lastName'
                     label='Фамилия'
                     rules={[
-                        {required: true, message: 'Пожалуйста, введите фамилию'},
+                        {required: true, whitespace: true, message: 'Пожалуйста, введите фамилию'},
                     ]}
                 >
                     <Input/>
@@ -60,7 +60,7 @@ export const AddNewRecordModal: FC<Props> = ({isOpen, onClose}) => {
                     name='age'
                     label='Возраст'
                     rules={[
-                        {required: true, message: 'Пожалуйста, введите возраст'}
+                        {required: true, whitespace: true, message: 'Пожалуйста, введите возраст'}
                     ]}
                 >
                     <InputNumber controls={false} min={0} max={100} style={{ width: '100%' }}/>
@@ -69,7 +69,7 @@ export const AddNewRecordModal: FC<Props> = ({isOpen, onClose}) => {
                     name='city'
                     label='Город'
                     rules={[
-                        {required: true, message: 'Пожалуйста, введите город'},
+                        {required: true, whitespace: true, message: 'Пожалуйста, введите город'},
                     ]}
                 >
                     <Input/>
@@ -78,7 +78,7 @@ export const AddNewRecordModal: FC<Props> = ({isOpen, onClose}) => {
                     name='country'
                     label='Страна'
                     rules={[
-                        {required: true, message: 'Пожалуйста, введите страну'},
+                        {required: true, whitespace: true, message: 'Пожалуйста, введите страну'},
                     ]}
                 >
                     <Input/>
@@ -89,7 +89,7 @@ export const AddNewRecordModal: FC<Props> = ({isOpen, onClose}) => {
                     validateDebounce={1000}
                     rules={[
                         {required: true, message: 'Пожалуйста, введите электронную почту'},
-                        {type: 'email', message: 'Невалидный адрес электронной почты'}
+                        {type: 'email', whitespace: true, message: 'Невалидный адрес электронной почты'}
                     ]}
                 >
                     <Input/>

@@ -18,7 +18,7 @@ export const App: FC = () => {
     return (
         <>
             <Card title={<CardTitle openModal={() => setIsModalOpen(true)}/>} className={styles.card}>
-                <Table dataSource={items} columns={COLUMNS} pagination={false} sticky={true} rowKey='id'/>
+                <Table dataSource={items} columns={COLUMNS} sticky pagination={false} rowKey='id'/>
                 <Flex justify='center' align='center' ref={triggerRef} style={{height: 100}}>
                     {hasNextPage && <Spin/>}
                 </Flex>
